@@ -111,10 +111,10 @@ module.exports = (robot) ->
   robot.respond /(octopus|octo) status$/i, (msg) ->
     getItems(robot, "api/dashboard")
     .then (data) ->
-      m = "Here, I give you amazing OcotopusDeploy stats!:"
+      m = "Lemme tell you a little story 'bout your deployments:"
       for proj in data.Projects
         if proj
-          m = m + "\n Project: " + proj.Name
+          m = m + "\n _Project_: *" + proj.Name + "*"
           projItems = _.filter(data.Items, (i) -> if i.ProjectId == proj.Id then i)
 
           if projItems && projItems.length > 0
@@ -122,8 +122,8 @@ module.exports = (robot) ->
               if item
                 enviro = _.find(data.Environments, (env) -> env.Id == item.EnvironmentId)
                 tabset = enviro.Name.length > "\t" ? " : \t" : " : \t\t"
-                formata = "\n  > %s\t\t : %s - %s"
-                formatb = "\n  > %s\t : %s - %s"
+                formata = "\n  > %s\t\t : %s - `%s`"
+                formatb = "\n  > %s\t : %s - `%s`"
                 format = if enviro.Name.length >= 5 then formatb else formata
                 m = m + util.format(format, enviro.Name, item.ReleaseVersion, item.State)
           else
