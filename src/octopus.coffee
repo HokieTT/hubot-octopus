@@ -105,7 +105,7 @@ module.exports = (robot) ->
       this.prevRelease = prevRelease
       deployRelease(robot, prevRelease, targetEnv)
     .then (deployment) ->
-      msg.send "Promoted #{this.prevRelease.Version} from #{sourceEnvName} to #{targetEnvName}"
+      msg.send "Promoting #{this.prevRelease.Version} from #{sourceEnvName} to #{targetEnvName}"
     .catch (error) ->
       msg.send error
   robot.respond /(octopus|octo) status$/i, (msg) ->
@@ -152,6 +152,6 @@ module.exports = (robot) ->
       this.release = release
       deployRelease(robot, release, targetEnv)
     .then (deployment) ->
-      msg.send "Promoting #{this.release.Version} to #{targetEnvName}"
+      msg.send "Deploying #{this.release.Version} to #{targetEnvName}"
     .catch (error) ->
       msg.send error
